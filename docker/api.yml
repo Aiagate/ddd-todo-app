@@ -1,0 +1,106 @@
+openapi: '3.0.2'
+info:
+  title: API Mock
+  version: '1.0'
+paths:
+  /todos/{id}:
+    get:
+      parameters:
+        - name: id
+          in: path
+          description: Todo id(ULID).
+          required: true
+          schema:
+            type: string
+            format: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+                example:
+                  id: '01HM17RR7D3C8QR9CWY1GH6Z9B'
+                  todoStatus: 1
+                  title: 'ToDo Sample Get'
+                  description: 'Todo get api sample data.'
+                  deadline: '2024-07-21T00:00:00+09:00'
+                  version: '1'
+        '400':
+          description: get method unexpected error
+  /todos:
+    get:
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+              required:
+                - "id"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                items:
+                  - id: '01HKM5MR9CEPHH2GP1YHAAQYTE'
+                    todoStatus: 1
+                    title: 'ToDo Sample 1'
+                    description: 'Todo get api sample data.'
+                    deadline: '2024-07-21T00:00:00+09:00'
+                    version: '1'
+                  - id: '01HM17QRS17644NVSCPYKSB5ZY'
+                    todoStatus: 2
+                    title: 'ToDo Sample 2'
+                    description: 'Sample data number 2.'
+                    deadline: '2023-06-21T00:00:00+09:00'
+                    version: '1'
+                  - id: '01HM17RR7D3C8QR9CWY1GH6Z9B'
+                    todoStatus: 1
+                    title: 'ToDo Sample 3'
+                    description: ''
+                    deadline: '2023-06-21T00:00:00+09:00'
+                    version: '1'
+                size: 3
+                total: 3
+                page: 1
+                pages: 1
+        '400':
+          description: unexpected error
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                todoStatus:
+                  type: number
+                title:
+                  type: string
+                description:
+                  type: string
+                deadline:
+                  type: string
+                version:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+                example:
+                  id: '01HKM5MR9CEPHH2GP1YHAAQYTE'
+                  todoStatus: 2
+                  title: 'Updated Todo'
+                  description: 'Todo get api sample data.'
+                  deadline: '2024-07-21T00:00:00+09:00'
+                  version: '1'
+        '401':
+          description: put method unexpected error
+
